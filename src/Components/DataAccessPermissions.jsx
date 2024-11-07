@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { db } from '../Firebase'; // Firebase configuration
 import { collection, addDoc } from 'firebase/firestore';
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
-
+import Navbar from './Navbar';
 const DataSharingRequestPage = () => {
   // State to manage form fields
   const [userEmail, setUserEmail] = useState('');
@@ -62,6 +62,7 @@ const DataSharingRequestPage = () => {
 
   return (
     <MDBContainer fluid className="p-4">
+      <Navbar/>
       <section className="text-center p-5 bg-primary text-white">
         <MDBTypography tag="h1" className="display-4">Data Sharing Request</MDBTypography>
         <p className="lead">Please fill out the form below to request access to the data.</p>
