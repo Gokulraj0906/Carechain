@@ -3,7 +3,7 @@ import { db } from '../Firebase'; // Firebase configuration
 import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBTypography, MDBBtn, MDBBtnGroup } from 'mdb-react-ui-kit';
 import { getAuth } from 'firebase/auth'; // Import Firebase Auth
-
+import Navbar from './Navbar';
 const RequestApprovalPage = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -74,6 +74,7 @@ const RequestApprovalPage = () => {
 
   return (
     <MDBContainer fluid className="p-4">
+      <Navbar/>
       <section className="text-center p-5 bg-primary text-white">
         <MDBTypography tag="h1" className="display-4">Request Approval</MDBTypography>
         <p className="lead">Approve or deny pending data access requests below.</p>
