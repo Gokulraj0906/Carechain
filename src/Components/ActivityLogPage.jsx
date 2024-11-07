@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../Firebase'; // Firebase configuration
+import { db, auth } from '../Firebase'; // Firebase configuration
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBBtn, MDBTypography, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBInput } from 'mdb-react-ui-kit';
 import Navbar from './Navbar';
@@ -13,11 +13,20 @@ const RequestHistoryPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [searchKeyword, setSearchKeyword] = useState('');
-  // eslint-disable-next-line
-  const [currentUserEmail, setCurrentUserEmail] = useState('gk862004@gmail.com'); // Example user email
+  const [currentUserEmail, setCurrentUserEmail] = useState(null);
 
-  // Fetch requests from Firestore
+  // Fetch current user's email from Firebase Auth
   useEffect(() => {
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      setCurrentUserEmail(currentUser.email);
+    }
+  }, []);
+
+  // Fetch requests from Firestore based on the current user's email
+  useEffect(() => {
+    if (!currentUserEmail) return;
+
     const fetchRequests = async () => {
       setLoading(true);
       try {
